@@ -2,6 +2,7 @@ package web;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
 import javax.ejb.EJB;
@@ -55,7 +56,7 @@ public class UserResource {
 		}
 	}
 	
-	@GET
+	@PUT
 	@Path("/logout")
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})

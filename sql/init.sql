@@ -7,7 +7,8 @@ CREATE TABLE app.CLIENT (
 		ID INTEGER NOT NULL primary key,
 		USERNAME VARCHAR(24) NOT NULL unique,
 		PASSWORD VARCHAR(24) NOT NULL,
-		TOKEN VARCHAR(50) unique
+		TOKEN VARCHAR(50) unique,
+		ADMIN INTEGER NOT NULL
 );
 
 CREATE TABLE app.SERIES (
@@ -43,6 +44,14 @@ insert into episode values (100001,'Episode2','Desc2',100001,1,2);
 insert into episode values (100002,'Episode3','Desc3',100001,1,3);
 insert into episode values (100003,'Episode4','Desc4',100001,1,4);
 insert into episode values (100004,'Episode5','Desc5',100001,1,5);
+
+insert into CLIENT values (1,'admin','admin',null, 1);
+insert into CLIENT values (2,'user','user',null, 0);
+
+insert into USER_FAVOURITES values (20000,1,100001);
+insert into USER_FAVOURITES values (20001,1,100002);
+insert into USER_FAVOURITES values (20002,1,100003);
+insert into USER_FAVOURITES values (20003,1,100004);
 	
-CREATE SEQUENCE generated_value
-START WITH 1 INCREMENT BY 1;
+--CREATE SEQUENCE generated_value
+--START WITH 1 INCREMENT BY 1;

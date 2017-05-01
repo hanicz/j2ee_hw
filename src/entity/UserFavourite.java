@@ -10,9 +10,17 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="USER_FAVOURITES")
-@NamedQuery(name="UserFavourite.findAll", query="SELECT u FROM UserFavourite u")
+@NamedQueries({
+	@NamedQuery(name=UserFavourite.FIND_ALL, query="SELECT u FROM UserFavourite u"),
+	@NamedQuery(name=UserFavourite.FIND_BY_CLIENT, query="SELECT u FROM UserFavourite u where u.client = :client"),
+	@NamedQuery(name=UserFavourite.FIND_BY_ID, query="SELECT u FROM UserFavourite u where u.id = :id")
+})
 public class UserFavourite implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String FIND_ALL = "UserFavourite.findAll";
+	public static final String FIND_BY_CLIENT = "UserFavourite.findByClient";
+	public static final String FIND_BY_ID = "UserFavourite.findById";
 
 	@Id
 	@SequenceGenerator(name="USER_FAVOURITES_ID_GENERATOR", sequenceName="GENERATED_VALUE")

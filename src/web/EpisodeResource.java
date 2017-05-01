@@ -7,16 +7,20 @@ import javax.ejb.EJBException;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;
 
 import comms.ResponseObject;
+import entity.Client;
 import entity.Episode;
 
 import javax.ws.rs.PathParam;
 
 import service.EpisodeService;
+import service.UserService;
 
 
 @Path("/episodes")
@@ -24,6 +28,9 @@ public class EpisodeResource {
 
 	@EJB
 	EpisodeService episodeService;
+	
+	@EJB
+	UserService userService;
 	
 	@GET
 	@Path("/{id}")
@@ -57,8 +64,12 @@ public class EpisodeResource {
 	 * */
 	
 	@POST
-	public Response createSeries(Episode e) {
+	public Response createSeries(@CookieParam("token") Cookie cookie, Episode e) {
 		try{
+			Client c = userService.getClientByToken(cookie.getValue());
+			if(c.getAdmin() != 1){
+				return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("Only admin can invoke this method!")).build();
+			}
 			episodeService.createEpisode(e);
 			return Response.status(Response.Status.CREATED).entity(new ResponseObject("Episode created successfully!")).build();
 		}
@@ -68,8 +79,12 @@ public class EpisodeResource {
 	}
 	
 	@PUT
-	public Response editEpisode(Episode e) {
+	public Response editEpisode(@CookieParam("token") Cookie cookie, Episode e) {
 		try{
+			Client c = userService.getClientByToken(cookie.getValue());
+			if(c.getAdmin() != 1){
+				return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("Only admin can invoke this method!")).build();
+			}
 			episodeService.editEpisode(e);
 			return Response.status(Response.Status.OK).entity(new ResponseObject("Episode updated successfully!")).build();
 		}
@@ -84,8 +99,12 @@ public class EpisodeResource {
 	 */
 	
 	@DELETE
-	public Response removeEpisode(Episode e) {
+	public Response removeEpisode(@CookieParam("token") Cookie cookie, Episode e) {
 		try{
+			Client c = userService.getClientByToken(cookie.getValue());
+			if(c.getAdmin() != 1){
+				return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("Only admin can invoke this method!")).build();
+			}
 			episodeService.removeEpisode(e);
 			return Response.status(Response.Status.OK).entity(new ResponseObject("Series removed successfully!")).build();
 		}

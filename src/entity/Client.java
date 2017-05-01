@@ -34,10 +34,12 @@ public class Client implements Serializable {
 	private String username;
 	
 	private String token;
+	
+	private int admin;
 
 	//bi-directional many-to-one association to UserFavourite
 	@OneToMany(mappedBy="client")
-	private List<UserFavourite> userFavourites;
+	private transient List<UserFavourite> userFavourites;
 
 	public Client() {
 	}
@@ -94,5 +96,13 @@ public class Client implements Serializable {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public int getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(int admin) {
+		this.admin = admin;
 	}
 }

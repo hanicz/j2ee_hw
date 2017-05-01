@@ -49,14 +49,24 @@ public class UserService extends AbstractFacade<Client>{
 	public boolean logoutClient(String token){
 		Client c = null;
 		try{
-			c = em.createNamedQuery(Client.FIND_BY_TOKEN, Client.class)
-					.setParameter("token", token)
-					.getSingleResult();
+			this.getClientByToken(token);
 			c.setToken(null);
 			this.edit(c);
 			return true;
 		}catch(NoResultException nre){
 			return false;
+		}
+	}
+	
+	public Client getClientByToken(String token){
+		Client c = null;
+		try{
+			c = em.createNamedQuery(Client.FIND_BY_TOKEN, Client.class)
+					.setParameter("token", token)
+					.getSingleResult();
+			return c;
+		}catch(NoResultException nre){
+			return null;
 		}
 	}
 	
