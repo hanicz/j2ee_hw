@@ -52,6 +52,8 @@ public class SeriesResource {
 			if(c.getAdmin() != 1){
 				return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("Only admin can invoke this method!")).build();
 			}
+			if(s.getDescription() == null || s.getName() == null)
+				return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Creating new series failed!")).build();
 			seriesService.createSeries(s);
 			return Response.status(Response.Status.CREATED).entity(new ResponseObject("Series created successfully!")).build();
 		}
@@ -67,6 +69,8 @@ public class SeriesResource {
 			if(c.getAdmin() != 1){
 				return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("Only admin can invoke this method!")).build();
 			}
+			if(s.getDescription() == null || s.getName() == null || s.getId() == 0)
+				return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Updating series failed!")).build();
 			seriesService.editSeries(s);
 			return Response.status(Response.Status.OK).entity(new ResponseObject("Series updated successfully!")).build();
 		}
@@ -82,6 +86,8 @@ public class SeriesResource {
 			if(c.getAdmin() != 1){
 				return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("Only admin can invoke this method!")).build();
 			}
+			if(s.getId() == 0)
+				return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Removing series failed!")).build();
 			seriesService.removeSeries(s);
 			return Response.status(Response.Status.OK).entity(new ResponseObject("Series removed successfully!")).build();
 		}

@@ -48,6 +48,8 @@ public class UserResource {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response register(Client c) {
 		try{
+			if(c.getPassword() == null || c.getUsername() == null)
+				return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Creating new user failed!")).build();
 			userservice.create(c);
 			return Response.status(Response.Status.CREATED).entity(new ResponseObject("User created successfully!")).build();
 		}

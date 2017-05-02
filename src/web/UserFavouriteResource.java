@@ -42,6 +42,9 @@ public class UserFavouriteResource {
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response newFavourite(@CookieParam("token") Cookie cookie, UserFavourite uf) {
+		if(uf.getSery().getId() == 0)
+			return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Bad request!")).build();
+		
 		userFavouriteService.newFavourite(cookie.getValue(), uf);
 		return Response.status(Response.Status.OK).entity(new ResponseObject("Success!")).build();
 	}
@@ -50,6 +53,8 @@ public class UserFavouriteResource {
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response deleteFavourite(@CookieParam("token") Cookie cookie, UserFavourite uf) {
+		if(uf.getId() == 0)
+			return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Bad request!")).build();
 		
 		if(uf.getId() == 0){
 			return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Bad request!")).build();

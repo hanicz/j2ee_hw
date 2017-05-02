@@ -70,6 +70,10 @@ public class EpisodeResource {
 			if(c.getAdmin() != 1){
 				return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("Only admin can invoke this method!")).build();
 			}
+
+			if(e.getDescription() == null || e.getEpisode() == 0 || e.getName() == null || e.getSeason() == 0 || e.getSery().getId() == 0)
+				return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Creating new episode failed!")).build();
+
 			episodeService.createEpisode(e);
 			return Response.status(Response.Status.CREATED).entity(new ResponseObject("Episode created successfully!")).build();
 		}
@@ -85,6 +89,10 @@ public class EpisodeResource {
 			if(c.getAdmin() != 1){
 				return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("Only admin can invoke this method!")).build();
 			}
+
+			if(e.getDescription() == null || e.getEpisode() == 0 || e.getName() == null || e.getSeason() == 0 || e.getId() == 0)
+				return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Updating episode failed!")).build();
+
 			episodeService.editEpisode(e);
 			return Response.status(Response.Status.OK).entity(new ResponseObject("Episode updated successfully!")).build();
 		}
@@ -105,6 +113,10 @@ public class EpisodeResource {
 			if(c.getAdmin() != 1){
 				return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("Only admin can invoke this method!")).build();
 			}
+
+			if(e.getId() == 0)
+				return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Removing episode failed!")).build();
+
 			episodeService.removeEpisode(e);
 			return Response.status(Response.Status.OK).entity(new ResponseObject("Series removed successfully!")).build();
 		}

@@ -28,6 +28,7 @@ public class UserService extends AbstractFacade<Client>{
 	}
 	
 	public void createClient(Client client) {
+		client.setAdmin(0);
 		this.create(client);
 	}
 	
