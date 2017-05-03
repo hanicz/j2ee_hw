@@ -32,13 +32,17 @@ public class UserFavouriteService extends AbstractFacade<UserFavourite>{
 	@EJB
 	UserService userService;
 	
-	public List<UserFavourite> getUserFavourites(String token){
+	public List<Series> getUserFavourites(String token){
 		Client c = userService.getClientByToken(token);
 		List<UserFavourite> uf = null;
 		if(c != null){
 			uf = em.createNamedQuery(UserFavourite.FIND_BY_CLIENT, UserFavourite.class)
 					.setParameter("client", c)
 					.getResultList();
+		}
+		List<Series> series = null;
+		for(UserFavourite u : uf){
+			series.add(u.getSery());
 		}
 		return uf;
 	}
