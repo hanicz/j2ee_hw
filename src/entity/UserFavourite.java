@@ -13,7 +13,8 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name=UserFavourite.FIND_ALL, query="SELECT u FROM UserFavourite u"),
 	@NamedQuery(name=UserFavourite.FIND_BY_CLIENT, query="SELECT u FROM UserFavourite u where u.client = :client"),
-	@NamedQuery(name=UserFavourite.FIND_BY_ID, query="SELECT u FROM UserFavourite u where u.id = :id")
+	@NamedQuery(name=UserFavourite.FIND_BY_ID, query="SELECT u FROM UserFavourite u where u.id = :id"),
+	@NamedQuery(name=UserFavourite.FIND_BY_SERIES, query="SELECT u FROM UserFavourite u where u.client = :c and u.sery = :s")
 })
 public class UserFavourite implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -31,6 +31,9 @@ public class UserFavouriteService extends AbstractFacade<UserFavourite>{
 	
 	@EJB
 	UserService userService;
+
+	@EJB
+	SeriesService seriesService;
 	
 	public List<Series> getUserFavourites(String token){
 		Client c = userService.getClientByToken(token);
@@ -47,28 +50,38 @@ public class UserFavouriteService extends AbstractFacade<UserFavourite>{
 		return uf;
 	}
 	
-	public void newFavourite(String token, UserFavourite uf){
+	public void newFavourite(String token, int seriesId){
 		Client c = userService.getClientByToken(token);
+		Series s = seriesService.getById(seriesId);
+		UserFavourite uf = new UserFavourite();
 		uf.setClient(c);
+		uf.setSery(s);
 		this.create(uf);
 	}
 	
-	public void deleteFavourite(String token, UserFavourite uf){
+	public void deleteFavourite(String token, int seriesId){
 		Client c = userService.getClientByToken(token);
-		
-		UserFavourite userFav = this.getById(uf.getId());
-		
-		if(userFav.getClient().getId() == c.getId()){
-			uf.setClient(c);
-			this.remove(uf);
-		}
+		Series s = seriesService.getById(seriesId);
+		UserFavourite userFav = this.getBySeries(c, s);
 
+		this.remove(userFav);
 	}
 	
 	public UserFavourite getById(int id){
 		try{
 			return em.createNamedQuery(UserFavourite.FIND_BY_ID, UserFavourite.class)
 					.setParameter("id", id)
+					.getSingleResult();
+		}catch(NoResultException nre){
+			return null;
+		}
+	}
+
+	public UserFavourite getBySeries(Client c, Series s){
+		try{
+			return em.createNamedQuery(UserFavourite.FIND_BY_SERIES, UserFavourite.class)
+					.setParameter("c", c)
+					.setParameter("s", s)
 					.getSingleResult();
 		}catch(NoResultException nre){
 			return null;
