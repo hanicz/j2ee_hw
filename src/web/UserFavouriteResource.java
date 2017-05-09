@@ -8,8 +8,7 @@ import javax.ws.rs.Path;
 import javax.ejb.EJB;
 
 import service.UserFavouriteService;
-import service.UserService;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.Consumes;
@@ -17,10 +16,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import comms.ResponseObject;
-import entity.UserFavourite;
-
-import javax.ejb.EJBException;
-import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Cookie;
 
 

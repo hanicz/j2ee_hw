@@ -10,6 +10,7 @@ import javax.ws.rs.CookieParam;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import comms.ResponseObject;
@@ -17,6 +18,7 @@ import entity.Client;
 import entity.Series;
 
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 import service.SeriesService;
 import service.UserService;
@@ -32,6 +34,7 @@ public class SeriesResource {
 	UserService userService;
 	
 	@GET
+	@Produces({MediaType.APPLICATION_JSON})
 	public Response getAllSeries() {
 		return Response.status(Response.Status.OK).entity(seriesService.getAllSeries()).build();
 	}

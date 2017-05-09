@@ -3,11 +3,11 @@ $(document).ready(function () {
     $.ajax({
         url: '/j2eehazi/rest/series',
         type: "GET",
-        xhrFields: {
-            withCredentials: true
-        },
+        dataType: 'json',
+        xhrFields: { withCredentials: true },
         success: function (data, textStatus, xhr) {
-            var obj = JSON.parse(data);
+            var str = JSON.stringify(data);
+            var obj = JSON.parse(str);
             var table = document.getElementById("SeriesTable");
             var tbody = table.getElementsByTagName("tbody")[0];
             tbody.innerHTML = "";
@@ -24,12 +24,12 @@ $(document).ready(function () {
                 cell3.className = "col-md-3";
                 cell3.style.textAlign = "center";
 
-                textnode1 = document.createTextNode(obj[i][1]);
-                textnode2 = document.createTextNode(obj[i][2]);
+                textnode1 = document.createTextNode(obj[i].name);
+                textnode2 = document.createTextNode(obj[i].description);
                 button = document.createElement("button");
                 button.innerHTML = "Favourite";
-                button.id = obj[i][0];
-                button.name = obj[i][0];
+                button.id = obj[i].id;
+                button.name = obj[i].id;
                 button.addEventListener('click', function (event) { addFavourite(event) });
                 cell1.appendChild(textnode1);
                 cell2.appendChild(textnode2);
@@ -52,9 +52,7 @@ function addFavourite(event) {
     $.ajax({
         url: '/j2eehazi/rest/userFavourites/' + event.target.id,
         type: "POST",
-        xhrFields: {
-            withCredentials: true
-        },
+        xhrFields: { withCredentials: true },
         success: function (data, textStatus, xhr) {
             console.log(xhr.status);
         },

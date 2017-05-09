@@ -30,7 +30,5 @@ body > #container { height: auto; min-height: 100%; }
 }
 
 #backDiv{
-    position: absolute;
-    top: 50px;
-    display: none;
+	display: none;
 }

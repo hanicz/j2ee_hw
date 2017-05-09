@@ -22,6 +22,7 @@ public class UserFavourite implements Serializable {
 	public static final String FIND_ALL = "UserFavourite.findAll";
 	public static final String FIND_BY_CLIENT = "UserFavourite.findByClient";
 	public static final String FIND_BY_ID = "UserFavourite.findById";
+	public static final String FIND_BY_SERIES = "UserFavourite.findBySeries";
 
 	@Id
 	@SequenceGenerator(name="USER_FAVOURITES_ID_GENERATOR", sequenceName="GENERATED_VALUE")

@@ -2,6 +2,7 @@ package service;
 
 import javax.ejb.Stateless;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -43,20 +44,29 @@ public class UserFavouriteService extends AbstractFacade<UserFavourite>{
 					.setParameter("client", c)
 					.getResultList();
 		}
-		List<Series> series = null;
+		else{
+			return null;
+		}
+		List<Series> series = new ArrayList<Series>();
 		for(UserFavourite u : uf){
 			series.add(u.getSery());
 		}
-		return uf;
+		return series;
 	}
 	
 	public void newFavourite(String token, int seriesId){
 		Client c = userService.getClientByToken(token);
 		Series s = seriesService.getById(seriesId);
 		UserFavourite uf = new UserFavourite();
-		uf.setClient(c);
-		uf.setSery(s);
-		this.create(uf);
+		try{
+			UserFavourite existing = em.createNamedQuery(UserFavourite.FIND_BY_SERIES, UserFavourite.class)
+				.setParameter("c", c)
+				.setParameter("s", s).getSingleResult();
+		}catch(NoResultException nre){
+			uf.setClient(c);
+			uf.setSery(s);
+			this.create(uf);
+		}
 	}
 	
 	public void deleteFavourite(String token, int seriesId){

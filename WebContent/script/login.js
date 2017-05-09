@@ -15,7 +15,7 @@ function login(user, password) {
             type: "GET",
             xhrFields: { withCredentials: true },
             success: function (myToken) {
-                console.log('yolo');
+                window.location.replace('/j2eehazi/all.html');
             },
             error: function () {
                 document.getElementById('myLabel').innerHTML = 'Error while trying to login';

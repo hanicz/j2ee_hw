@@ -11,6 +11,7 @@ import javax.ws.rs.CookieParam;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import comms.ResponseObject;
@@ -18,6 +19,7 @@ import entity.Client;
 import entity.Episode;
 
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 import service.EpisodeService;
 import service.UserService;
@@ -34,6 +36,7 @@ public class EpisodeResource {
 	
 	@GET
 	@Path("/{id}")
+	@Produces({MediaType.APPLICATION_JSON})
 	public Response getEpisode(@PathParam("id") int id) {
 		Episode e = episodeService.getById(id);
 		if(e != null)
@@ -43,6 +46,7 @@ public class EpisodeResource {
 	
 	@GET
 	@Path("/series/{id}")
+	@Produces({MediaType.APPLICATION_JSON})
 	public Response getEpisodesBySeriesId(@PathParam("id") int id) {
 		List<Episode> e = episodeService.getBySeriesId(id);
 		if(e != null)
@@ -64,6 +68,7 @@ public class EpisodeResource {
 	 * */
 	
 	@POST
+	@Produces({MediaType.APPLICATION_JSON})
 	public Response createSeries(@CookieParam("token") Cookie cookie, Episode e) {
 		try{
 			Client c = userService.getClientByToken(cookie.getValue());
@@ -83,6 +88,7 @@ public class EpisodeResource {
 	}
 	
 	@PUT
+	@Produces({MediaType.APPLICATION_JSON})
 	public Response editEpisode(@CookieParam("token") Cookie cookie, Episode e) {
 		try{
 			Client c = userService.getClientByToken(cookie.getValue());
@@ -107,6 +113,7 @@ public class EpisodeResource {
 	 */
 	
 	@DELETE
+	@Produces({MediaType.APPLICATION_JSON})
 	public Response removeEpisode(@CookieParam("token") Cookie cookie, Episode e) {
 		try{
 			Client c = userService.getClientByToken(cookie.getValue());

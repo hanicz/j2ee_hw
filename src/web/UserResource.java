@@ -5,6 +5,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.ejb.EJB;
 import service.UserService;
 import javax.ws.rs.QueryParam;
@@ -36,7 +39,13 @@ public class UserResource {
 		client.setUsername(username);
 		String token = userservice.loginClient(client);
 		if(token != null){
-			NewCookie cookie = new NewCookie("token",token);
+			Date dt = new Date();
+			Calendar c = Calendar.getInstance(); 
+			c.setTime(dt); 
+			c.add(Calendar.DATE, 1);
+			dt = c.getTime();
+			
+			NewCookie cookie = new NewCookie("token",token, "/", "","comment",60 * 60 * 24 ,false);
 			return Response.status(Response.Status.OK).cookie(cookie).entity(new ResponseObject("Logged in successfully!")).build();
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("Login failed!")).build();
