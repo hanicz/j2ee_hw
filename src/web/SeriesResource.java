@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.CookieParam;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Cookie;
@@ -17,8 +18,8 @@ import comms.ResponseObject;
 import entity.Client;
 import entity.Series;
 
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
 
 import service.SeriesService;
 import service.UserService;
@@ -41,6 +42,7 @@ public class SeriesResource {
 	
 	@GET
 	@Path("/{id}")
+	@Produces({MediaType.APPLICATION_JSON})
 	public Response getSeries(@PathParam("id") int id) {
 		Series s = seriesService.getById(id);
 		if(s != null)
@@ -66,6 +68,8 @@ public class SeriesResource {
 	}
 	
 	@PUT
+	@Produces({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON})
 	public Response editSeries(@CookieParam("token") Cookie cookie, Series s) {
 		try{
 			Client c = userService.getClientByToken(cookie.getValue());
@@ -83,15 +87,16 @@ public class SeriesResource {
 	}
 	
 	@DELETE
-	public Response removeSeries(@CookieParam("token") Cookie cookie, Series s) {
+	@Path("/{id}")
+	@Produces({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON})
+	public Response removeSeries(@CookieParam("token") Cookie cookie,@PathParam("id") int id) {
 		try{
 			Client c = userService.getClientByToken(cookie.getValue());
 			if(c.getAdmin() != 1){
 				return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("Only admin can invoke this method!")).build();
 			}
-			if(s.getId() == 0)
-				return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Removing series failed!")).build();
-			seriesService.removeSeries(s);
+			seriesService.removeSeries(id);
 			return Response.status(Response.Status.OK).entity(new ResponseObject("Series removed successfully!")).build();
 		}
 		catch(EJBException exc){

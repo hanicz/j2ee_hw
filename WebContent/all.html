@@ -20,6 +20,8 @@
                     <ul class="nav navbar-nav">
                         <li><a href="all.html" role="button">All</a></li>
                         <li><a href="favourites.html" role="button">Favourite</a></li>
+                        <li><a href="series.html" role="button">Series</a></li>
+                        <li><a href="episode.html" role="button">Episode</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#" id="logout">Logout</a></li>
@@ -28,12 +30,29 @@
             </div>
         </nav>
         <div id="content" class="container" align="center">
+            <div id="editDiv">
+                <div id="third" class="row">
+                    <input class="form-control" id="ex3" type="text" placeholder="Id">
+                </div>
+                <div id="first" class="row">
+                    <label style="color:white" for="ex1"><font size="2.5">Name</font></label>
+                    <input class="form-control" id="ex1" type="text" placeholder="Name">
+                </div>
+                <div id="second" class="row">
+                    <label style="color:white" for="ex2"><font size="2.5">Description</font></label>
+                    <input class="form-control" id="ex2" type="text" placeholder="Description">
+                </div>
+                <div id="third" class="row">
+                    <hr/>
+                    <button type="button" id="save_button" class="btn btn-default">Save</button>
+                </div>
+            </div>
             <table id="SeriesTable" class="table table-striped table-bordered" cellspacing="5" style="background:white">
                 <thead>
                     <tr> 
                         <td align="center"><b>Name</b></td>
                         <td align="center"><b>Description</b></td>
-                        <td align="center"><b>Add</b></td>
+                        <td align="center"><b>Action</b></td>
                     </tr>
                 </thead>
                 <tbody>

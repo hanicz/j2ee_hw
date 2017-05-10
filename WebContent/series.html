@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <title>Episodes</title>
+    <link rel="stylesheet" href="css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="script/series.js"></script>
+    <script src="script/common.js"></script>
+
+
+</head>
+<body style="background-color: grey">
+    <div id="container">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid" id="menuBar">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="all.html" role="button">All</a></li>
+                        <li><a href="favourites.html" role="button">Favourite</a></li>
+                        <li><a href="series.html" role="button">Series</a></li>
+                        <li><a href="episode.html" role="button">Episode</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" id="logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="content" class="container" align="center">
+            <div id="first" class="row">
+                <label style="color:white" for="ex1"><font size="2.5">Name</font></label>
+                <input class="form-control" id="ex1" type="text" placeholder="Name">
+            </div>
+            <div id="second" class="row">
+                <label style="color:white" for="ex2"><font size="2.5">Description</font></label>
+                <input class="form-control" id="ex2" type="text" placeholder="Description">
+            </div>
+            <div id="third" class="row">
+                <hr/>
+                <button type="button" id="save_button" class="btn btn-default">Save</button>
+            </div>
+        </div>
+    </div>
+    <div id="footer" align="center">
+        <p/>
+        <p>...</p>
+    </div>
+</body>
+</html>

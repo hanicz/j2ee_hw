@@ -55,7 +55,10 @@ public class SeriesService extends AbstractFacade<Series>{
 		this.edit(series);
 	}
 	
-	public void removeSeries(Series series) {
-		this.remove(series);
+	public void removeSeries(int id) {
+		
+		Series s = this.getById(id);
+		
+		if(s != null) this.remove(s);
 	}
 }
