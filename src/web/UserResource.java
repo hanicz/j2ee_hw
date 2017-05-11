@@ -77,5 +77,17 @@ public class UserResource {
 		return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Logout failed!")).build();
 	}
 	
+	@GET
+	@Path("/admin")
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response isAdmin(@CookieParam("token") Cookie cookie) {
+		Client c = userService.getClientByToken(cookie.getValue());
+		if(c.getAdmin() != 1){
+			return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("User is not an admin")).build();
+		}else{
+			return Response.status(Response.Status.OK).entity(new ResponseObject("The user is an admin")).build();
+		}
+	}
 }
 

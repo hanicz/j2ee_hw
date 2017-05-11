@@ -3,15 +3,15 @@ $(document).ready(function () {
     loadFavouriteTable();
 
     $("#backButton").click(function() {
-    var episodesTable = document.getElementById("EpisodesTable");
-    var episodeDiv = document.getElementById("backDiv");
-    episodeDiv.style.display = "none";
+        var episodesTable = document.getElementById("EpisodesTable");
+        var episodeDiv = document.getElementById("backDiv");
+        episodeDiv.style.display = "none";
 
-    var tbody = episodesTable.getElementsByTagName("tbody")[0];
-    tbody.innerHTML = "";
+        var tbody = episodesTable.getElementsByTagName("tbody")[0];
+        tbody.innerHTML = "";
 
-    loadFavouriteTable();
-});
+        loadFavouriteTable();
+    });
 
 });
 
