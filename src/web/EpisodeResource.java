@@ -113,18 +113,15 @@ public class EpisodeResource {
 	 */
 	
 	@DELETE
+	@Path("/{id}")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response removeEpisode(@CookieParam("token") Cookie cookie, Episode e) {
+	public Response removeEpisode(@CookieParam("token") Cookie cookie,@PathParam("id") int id) {
 		try{
 			Client c = userService.getClientByToken(cookie.getValue());
 			if(c.getAdmin() != 1){
 				return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("Only admin can invoke this method!")).build();
 			}
-
-			if(e.getId() == 0)
-				return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseObject("Removing episode failed!")).build();
-
-			episodeService.removeEpisode(e);
+			episodeService.removeEpisode(id);
 			return Response.status(Response.Status.OK).entity(new ResponseObject("Series removed successfully!")).build();
 		}
 		catch(EJBException exc){

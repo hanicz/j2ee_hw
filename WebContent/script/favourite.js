@@ -34,6 +34,23 @@ function deleteFavourite(event) {
 };
 
 function loadFavouriteTable(){
+
+     $.ajax({
+        url: '/j2eehazi/rest/users/admin',
+        type: "GET",
+        dataType: 'json',
+        xhrFields: { withCredentials: true },
+        success: function (data, textStatus, xhr) {
+            document.getElementById("episode_li").style.display = "list-item";
+            document.getElementById("series_li").style.display = "list-item";
+            isAdmin = true;
+        },
+        error: function (xhr, textStatus) {
+            isAdmin = false;
+            //window.location.replace('/j2eehazi');
+        }
+    });
+
     $.ajax({
         url: '/j2eehazi/rest/userFavourites',
         type: "GET",

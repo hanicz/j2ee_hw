@@ -1,19 +1,4 @@
 $(document).ready(function () {
-
-    $.ajax({
-        url: '/j2eehazi/rest/users/admin',
-        type: "GET",
-        dataType: 'json',
-        xhrFields: { withCredentials: true },
-        success: function (data, textStatus, xhr) {
-            document.getElementById("episode_li").style.display = "list-item";
-            document.getElementById("series_li").style.display = "list-item";
-        },
-        error: function (xhr, textStatus) {
-            //window.location.replace('/j2eehazi');
-        }
-    });
-
     $("#backButton").click(function() {
 
         loadTable();
@@ -58,6 +43,7 @@ function loadTable(){
             document.getElementById("episode_li").style.display = "list-item";
             document.getElementById("series_li").style.display = "list-item";
             isAdmin = true;
+            console.log('true');
         },
         error: function (xhr, textStatus) {
             isAdmin = false;
@@ -108,6 +94,8 @@ function loadTable(){
                 cell1.appendChild(textnode1);
                 cell2.appendChild(textnode2);
                 cell3.appendChild(button);
+
+                console.log(isAdmin);
 
                 if(isAdmin){
                     button2 = document.createElement("button");

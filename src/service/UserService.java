@@ -50,7 +50,7 @@ public class UserService extends AbstractFacade<Client>{
 	public boolean logoutClient(String token){
 		Client c = null;
 		try{
-			this.getClientByToken(token);
+			c = this.getClientByToken(token);
 			c.setToken(null);
 			this.edit(c);
 			return true;

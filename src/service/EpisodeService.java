@@ -63,7 +63,8 @@ public class EpisodeService extends AbstractFacade<Episode>{
 		this.edit(episode);
 	}
 	
-	public void removeEpisode(Episode episode) {
-		this.remove(episode);
+	public void removeEpisode(int id) {
+		Episode e = this.getById(id);
+		if (e != null) this.remove(e);
 	}
 }

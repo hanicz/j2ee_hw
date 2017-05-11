@@ -82,7 +82,7 @@ public class UserResource {
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response isAdmin(@CookieParam("token") Cookie cookie) {
-		Client c = userService.getClientByToken(cookie.getValue());
+		Client c = userservice.getClientByToken(cookie.getValue());
 		if(c.getAdmin() != 1){
 			return Response.status(Response.Status.UNAUTHORIZED).entity(new ResponseObject("User is not an admin")).build();
 		}else{
